@@ -1,0 +1,1 @@
+{"pagination": {"limit": 100, "offset": 0, "count": 1, "total": 1}, "data": [{"open": 450.76, "high": 455.5, "low": 450.76, "close": 453.76, "volume": 3456100.0, "adj_high": 455.5, "adj_low": 450.76, "adj_close": 453.76, "adj_open": 450.76, "adj_volume": 3458384.0, "split_factor": 1.0, "dividend": 0.0, "symbol": "NFLX", "exchange": "XNAS", "date": "2023-12-08T00:00:00+0000"}]}

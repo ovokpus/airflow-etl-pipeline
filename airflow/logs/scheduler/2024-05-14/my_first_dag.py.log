@@ -1,0 +1,6 @@
+[2024-05-14T04:18:40.763+0000] {processor.py:157} INFO - Started process (PID=439) to work on /opt/airflow/dags/my_first_dag.py
+[2024-05-14T04:18:40.764+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/my_first_dag.py for tasks to queue
+[2024-05-14T04:18:40.765+0000] {logging_mixin.py:154} INFO - [2024-05-14T04:18:40.765+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/my_first_dag.py
+[2024-05-14T04:18:40.767+0000] {logging_mixin.py:154} INFO - [2024-05-14T04:18:40.767+0000] {dagbag.py:323} INFO - File /opt/airflow/dags/my_first_dag.py assumed to contain no DAGs. Skipping.
+[2024-05-14T04:18:40.768+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/my_first_dag.py
+[2024-05-14T04:18:40.788+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/my_first_dag.py took 0.030 seconds
