@@ -1,0 +1,8 @@
+argparse
+datetime
+json
+numpy
+pandas
+pprint
+requests
+yfinance

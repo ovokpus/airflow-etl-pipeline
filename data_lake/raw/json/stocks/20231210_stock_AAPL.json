@@ -1,1 +1,27 @@
-{"pagination": {"limit": 100, "offset": 0, "count": 1, "total": 1}, "data": [{"open": 194.2, "high": 195.99, "low": 193.67, "close": 195.71, "volume": 53377300.0, "adj_high": 195.99, "adj_low": 193.67, "adj_close": 195.71, "adj_open": 194.2, "adj_volume": 53406358.0, "split_factor": 1.0, "dividend": 0.0, "symbol": "AAPL", "exchange": "XNAS", "date": "2023-12-08T00:00:00+0000"}]}
+{
+    "pagination": {
+        "limit": 100,
+        "offset": 0,
+        "count": 1,
+        "total": 1
+    },
+    "data": [
+        {
+            "open": 194.2,
+            "high": 195.99,
+            "low": 193.67,
+            "close": 195.71,
+            "volume": 53377300.0,
+            "adj_high": 195.99,
+            "adj_low": 193.67,
+            "adj_close": 195.71,
+            "adj_open": 194.2,
+            "adj_volume": 53406358.0,
+            "split_factor": 1.0,
+            "dividend": 0.0,
+            "symbol": "AAPL",
+            "exchange": "XNAS",
+            "date": "2023-12-08T00:00:00+0000"
+        }
+    ]
+}
