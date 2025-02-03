@@ -36,7 +36,7 @@ if __name__ == "__main__":
         df = df[["date", "open", "high", "low", "close", "volume"]]
 
         if df.shape[0] > 0:
-            df["date"] = pd.to_datetime(df["date"]).dt.date
+            df["date"] = pd.to_datetime(df["date"], errors='coerce')
             for item in ["open", "high", "low", "close"]:
                 df[item] = df[item].astype(float)
             df["volume"] = df["volume"].astype(int)

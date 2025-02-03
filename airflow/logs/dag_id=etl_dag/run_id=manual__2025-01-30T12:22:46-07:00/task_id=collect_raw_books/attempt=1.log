@@ -1,0 +1,24 @@
+[2025-01-30T19:24:03.760+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-30T19:24:03.769+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T12:22:46-07:00 [queued]>
+[2025-01-30T19:24:03.772+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T12:22:46-07:00 [queued]>
+[2025-01-30T19:24:03.774+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 1
+[2025-01-30T19:24:03.782+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): collect_raw_books> on 2025-01-30 19:22:46+00:00
+[2025-01-30T19:24:03.786+0000] {standard_task_runner.py:72} INFO - Started process 592 to run task
+[2025-01-30T19:24:03.790+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_dag', 'collect_raw_books', 'manual__2025-01-30T12:22:46-07:00', '--job-id', '78', '--raw', '--subdir', 'DAGS_FOLDER/my_first_dag.py', '--cfg-path', '/tmp/tmppfsrruln']
+[2025-01-30T19:24:03.791+0000] {standard_task_runner.py:105} INFO - Job 78: Subtask collect_raw_books
+[2025-01-30T19:24:03.817+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T12:22:46-07:00 [running]> on host 48308722451a
+[2025-01-30T19:24:03.855+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_dag' AIRFLOW_CTX_TASK_ID='collect_raw_books' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T19:22:46+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T12:22:46-07:00'
+[2025-01-30T19:24:03.856+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-30T19:24:03.862+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2025-01-30T19:24:03.862+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python3 /opt/***/data_collection/collect_books.py --data_lake_path $DATA_LAKE_PATH --open_library_ids $OPEN_LIBRARY_IDS --execution_date $EXECUTION_DATE']
+[2025-01-30T19:24:03.866+0000] {subprocess.py:99} INFO - Output:
+[2025-01-30T19:24:05.183+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/.json
+[2025-01-30T19:24:05.184+0000] {subprocess.py:106} INFO - Error occurred in the request. It returned code: 404
+[2025-01-30T19:24:05.184+0000] {subprocess.py:106} INFO -  {'error': 'notfound', 'key': '/works/'}
+[2025-01-30T19:24:05.185+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/20250130_book_
+[2025-01-30T19:24:05.240+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2025-01-30T19:24:05.254+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-30T19:24:05.254+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=etl_dag, task_id=collect_raw_books, run_id=manual__2025-01-30T12:22:46-07:00, execution_date=20250130T192246, start_date=20250130T192403, end_date=20250130T192405
+[2025-01-30T19:24:05.269+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-01-30T19:24:05.280+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-01-30T19:24:05.281+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

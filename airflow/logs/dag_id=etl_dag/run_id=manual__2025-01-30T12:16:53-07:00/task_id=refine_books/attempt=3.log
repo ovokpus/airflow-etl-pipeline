@@ -1,0 +1,93 @@
+[2025-01-30T19:21:46.496+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-30T19:21:46.503+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_dag.refine_books manual__2025-01-30T12:16:53-07:00 [queued]>
+[2025-01-30T19:21:46.506+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_dag.refine_books manual__2025-01-30T12:16:53-07:00 [queued]>
+[2025-01-30T19:21:46.506+0000] {taskinstance.py:2866} INFO - Starting attempt 3 of 3
+[2025-01-30T19:21:46.511+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): refine_books> on 2025-01-30 19:16:53+00:00
+[2025-01-30T19:21:46.513+0000] {standard_task_runner.py:72} INFO - Started process 536 to run task
+[2025-01-30T19:21:46.516+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_dag', 'refine_books', 'manual__2025-01-30T12:16:53-07:00', '--job-id', '75', '--raw', '--subdir', 'DAGS_FOLDER/my_first_dag.py', '--cfg-path', '/tmp/tmp3hsirkk8']
+[2025-01-30T19:21:46.517+0000] {standard_task_runner.py:105} INFO - Job 75: Subtask refine_books
+[2025-01-30T19:21:46.552+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_dag.refine_books manual__2025-01-30T12:16:53-07:00 [running]> on host 48308722451a
+[2025-01-30T19:21:46.587+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_dag' AIRFLOW_CTX_TASK_ID='refine_books' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T19:16:53+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T12:16:53-07:00'
+[2025-01-30T19:21:46.588+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-30T19:21:46.594+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2025-01-30T19:21:46.594+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python3 /opt/***/data_collection/treat_books.py --data_lake_path $DATA_LAKE_PATH']
+[2025-01-30T19:21:46.598+0000] {subprocess.py:99} INFO - Output:
+[2025-01-30T19:21:47.015+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2025-01-30T19:21:47.018+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/treat_books.py", line 7, in <module>
+[2025-01-30T19:21:47.019+0000] {subprocess.py:106} INFO -     from utils import save_data
+[2025-01-30T19:21:47.019+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/utils.py", line 38
+[2025-01-30T19:21:47.019+0000] {subprocess.py:106} INFO -     if 'collect_date' in df.columns
+[2025-01-30T19:21:47.019+0000] {subprocess.py:106} INFO -                                    ^
+[2025-01-30T19:21:47.019+0000] {subprocess.py:106} INFO - SyntaxError: expected ':'
+[2025-01-30T19:21:47.047+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2025-01-30T19:21:47.053+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-01-30T19:21:47.055+0000] {taskinstance.py:1225} INFO - Marking task as FAILED. dag_id=etl_dag, task_id=refine_books, run_id=manual__2025-01-30T12:16:53-07:00, execution_date=20250130T191653, start_date=20250130T192146, end_date=20250130T192147
+[2025-01-30T19:21:47.060+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-30T19:21:47.061+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 75 for task refine_books (Bash command failed. The command returned a non-zero exit code 1.; 536)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-01-30T19:21:47.081+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-01-30T19:21:47.088+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-01-30T19:21:47.088+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

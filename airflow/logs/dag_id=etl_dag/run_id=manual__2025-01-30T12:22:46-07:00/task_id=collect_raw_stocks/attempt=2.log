@@ -1,0 +1,111 @@
+[2025-01-30T19:31:12.390+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-30T19:31:12.396+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_dag.collect_raw_stocks manual__2025-01-30T12:22:46-07:00 [queued]>
+[2025-01-30T19:31:12.399+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_dag.collect_raw_stocks manual__2025-01-30T12:22:46-07:00 [queued]>
+[2025-01-30T19:31:12.399+0000] {taskinstance.py:2866} INFO - Starting attempt 2 of 2
+[2025-01-30T19:31:12.404+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): collect_raw_stocks> on 2025-01-30 19:22:46+00:00
+[2025-01-30T19:31:12.407+0000] {standard_task_runner.py:72} INFO - Started process 75 to run task
+[2025-01-30T19:31:12.408+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_dag', 'collect_raw_stocks', 'manual__2025-01-30T12:22:46-07:00', '--job-id', '82', '--raw', '--subdir', 'DAGS_FOLDER/my_first_dag.py', '--cfg-path', '/tmp/tmp0dkcvv0a']
+[2025-01-30T19:31:12.409+0000] {standard_task_runner.py:105} INFO - Job 82: Subtask collect_raw_stocks
+[2025-01-30T19:31:12.427+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_dag.collect_raw_stocks manual__2025-01-30T12:22:46-07:00 [running]> on host 48308722451a
+[2025-01-30T19:31:12.469+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_dag' AIRFLOW_CTX_TASK_ID='collect_raw_stocks' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T19:22:46+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T12:22:46-07:00'
+[2025-01-30T19:31:12.470+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-30T19:31:12.476+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2025-01-30T19:31:12.477+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python3 /opt/***/data_collection/collect_stocks.py --data_lake_path $DATA_LAKE_PATH --stock_tickers $STOCK_TICKERS --execution_date $EXECUTION_DATE']
+[2025-01-30T19:31:12.481+0000] {subprocess.py:99} INFO - Output:
+[2025-01-30T19:31:13.799+0000] {subprocess.py:106} INFO - Namespace(data_lake_path='/opt/***/data_lake/', stock_tickers='AAPL,,MSFT,,AMZN,,META,,NFLX,,GOOG', execution_date='2025-01-30')
+[2025-01-30T19:31:13.800+0000] {subprocess.py:106} INFO -                                  Open        High  ...  Dividends  Stock Splits
+[2025-01-30T19:31:13.802+0000] {subprocess.py:106} INFO - Date                                               ...
+[2025-01-30T19:31:13.805+0000] {subprocess.py:106} INFO - 2025-01-29 00:00:00-05:00  234.119995  239.860001  ...        0.0           0.0
+[2025-01-30T19:31:13.810+0000] {subprocess.py:106} INFO - 
+[2025-01-30T19:31:13.813+0000] {subprocess.py:106} INFO - [1 rows x 7 columns]
+[2025-01-30T19:31:13.815+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/csv/20250130_stock_AAPL
+[2025-01-30T19:31:13.819+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2025-01-30T19:31:13.821+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/collect_stocks.py", line 57, in <module>
+[2025-01-30T19:31:13.824+0000] {subprocess.py:106} INFO -     save_data(
+[2025-01-30T19:31:13.825+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/utils.py", line 28, in save_data
+[2025-01-30T19:31:13.827+0000] {subprocess.py:106} INFO -     df.to_csv(f"{full_file_name}.csv", index=False)
+[2025-01-30T19:31:13.829+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/generic.py", line 3772, in to_csv
+[2025-01-30T19:31:13.830+0000] {subprocess.py:106} INFO -     return DataFrameRenderer(formatter).to_csv(
+[2025-01-30T19:31:13.830+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-01-30T19:31:13.830+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/io/formats/format.py", line 1186, in to_csv
+[2025-01-30T19:31:13.830+0000] {subprocess.py:106} INFO -     csv_formatter.save()
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/io/formats/csvs.py", line 240, in save
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -     with get_handle(
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -          ^^^^^^^^^^^
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/io/common.py", line 737, in get_handle
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -     check_parent_directory(str(handle))
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/io/common.py", line 600, in check_parent_directory
+[2025-01-30T19:31:13.831+0000] {subprocess.py:106} INFO -     raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+[2025-01-30T19:31:13.832+0000] {subprocess.py:106} INFO - OSError: Cannot save file into a non-existent directory: '/opt/***/data_lake/raw/csv'
+[2025-01-30T19:31:13.877+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2025-01-30T19:31:13.883+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-01-30T19:31:13.885+0000] {taskinstance.py:1225} INFO - Marking task as FAILED. dag_id=etl_dag, task_id=collect_raw_stocks, run_id=manual__2025-01-30T12:22:46-07:00, execution_date=20250130T192246, start_date=20250130T193112, end_date=20250130T193113
+[2025-01-30T19:31:13.891+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-30T19:31:13.891+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 82 for task collect_raw_stocks (Bash command failed. The command returned a non-zero exit code 1.; 75)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-01-30T19:31:13.918+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-01-30T19:31:13.928+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-01-30T19:31:13.929+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -6,6 +6,7 @@ from typing import Dict, Union
 from datetime import date, datetime
 from argparse import ArgumentParser
 import requests
+import re
 from utils import save_data
 import pandas as pd
 
@@ -75,7 +76,9 @@ if __name__ == "__main__":
         "--execution_date", required=True, help="Execution date of the Airflow DAG"
     )
     args = parser.parse_args()
-    IDS_LIST = args.open_library_ids.split(",")
+    # IDS_LIST = args.open_library_ids.split(",")
+    IDS_LIST = [item for item in args.open_library_ids.split(
+        ",") if isinstance(item, str) and re.search(r"^[A-Z0-9]+$", item)]
     blocklist = []
 
     try:

@@ -1,0 +1,138 @@
+[2025-02-03T19:10:50.133+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-02-03T19:10:50.140+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_dag.collect_raw_stocks manual__2025-02-03T12:05:46-07:00 [queued]>
+[2025-02-03T19:10:50.143+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_dag.collect_raw_stocks manual__2025-02-03T12:05:46-07:00 [queued]>
+[2025-02-03T19:10:50.144+0000] {taskinstance.py:2866} INFO - Starting attempt 2 of 2
+[2025-02-03T19:10:50.149+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): collect_raw_stocks> on 2025-02-03 19:05:46+00:00
+[2025-02-03T19:10:50.151+0000] {standard_task_runner.py:72} INFO - Started process 268 to run task
+[2025-02-03T19:10:50.153+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_dag', 'collect_raw_stocks', 'manual__2025-02-03T12:05:46-07:00', '--job-id', '124', '--raw', '--subdir', 'DAGS_FOLDER/my_first_dag.py', '--cfg-path', '/tmp/tmp9i0f3bo0']
+[2025-02-03T19:10:50.154+0000] {standard_task_runner.py:105} INFO - Job 124: Subtask collect_raw_stocks
+[2025-02-03T19:10:50.194+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_dag.collect_raw_stocks manual__2025-02-03T12:05:46-07:00 [running]> on host 48308722451a
+[2025-02-03T19:10:50.237+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_dag' AIRFLOW_CTX_TASK_ID='collect_raw_stocks' AIRFLOW_CTX_EXECUTION_DATE='2025-02-03T19:05:46+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-03T12:05:46-07:00'
+[2025-02-03T19:10:50.237+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-02-03T19:10:50.244+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2025-02-03T19:10:50.245+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python3 "/opt/***/data_collection/"collect_stocks.py --data_lake_path $DATA_LAKE_PATH --stock_tickers $STOCK_TICKERS --execution_date $EXECUTION_DATE --stock_collect_mode $STOCK_COLLECT_MODE --start_date_missing_values $START_DATE_MISSING_VALUES --end_date_missing_values $END_DATE_MISSING_VALUES']
+[2025-02-03T19:10:50.249+0000] {subprocess.py:99} INFO - Output:
+[2025-02-03T19:10:50.949+0000] {subprocess.py:106} INFO - Namespace(data_lake_path='/opt/***/data_lake/', stock_tickers='[,AAPL,,MSFT,,AMZN,,META,,NFLX,,GOOG,]', execution_date='2025-02-03', stock_collect_mode='fill_missing', start_date_missing_values='2024-11-01', end_date_missing_values='2025-01-31')
+[2025-02-03T19:10:50.949+0000] {subprocess.py:106} INFO -          date        open        high  ...    volume  ticker_name  collect_date
+[2025-02-03T19:10:50.950+0000] {subprocess.py:106} INFO - 0  2025-01-29  234.149994  238.690002  ...  30064089         AAPL    2025-01-29
+[2025-02-03T19:10:50.950+0000] {subprocess.py:106} INFO - 0  2025-01-29  446.690002  446.880005  ...  11655130         MSFT    2025-01-29
+[2025-02-03T19:10:50.950+0000] {subprocess.py:106} INFO - 0  2025-01-29  674.804993  680.289917  ...  11753956         META    2025-01-29
+[2025-02-03T19:10:50.950+0000] {subprocess.py:106} INFO - 0  2025-01-29  197.360001  198.459503  ...   7859301         GOOG    2025-01-29
+[2025-02-03T19:10:50.951+0000] {subprocess.py:106} INFO - 0  2025-01-29  239.014999  240.360001  ...  16768416         AMZN    2025-01-29
+[2025-02-03T19:10:50.951+0000] {subprocess.py:106} INFO - 
+[2025-02-03T19:10:50.952+0000] {subprocess.py:106} INFO - [5 rows x 8 columns]
+[2025-02-03T19:10:50.952+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2025-02-03T19:10:50.952+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/collect_stocks.py", line 109, in <module>
+[2025-02-03T19:10:50.956+0000] {subprocess.py:106} INFO -     missing_dates = get_missing_stock_dates(
+[2025-02-03T19:10:50.956+0000] {subprocess.py:106} INFO -                     ^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.956+0000] {subprocess.py:106} INFO -   File "/opt/***/data_collection/utils.py", line 59, in get_missing_stock_dates
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -     df_filtered = df.query(f"ticker_name == {ticker}")
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/frame.py", line 4449, in query
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -     res = self.eval(expr, **kwargs)
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/frame.py", line 4575, in eval
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -     return _eval(expr, inplace=inplace, **kwargs)
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/eval.py", line 336, in eval
+[2025-02-03T19:10:50.957+0000] {subprocess.py:106} INFO -     parsed_expr = Expr(expr, engine=engine, parser=parser, env=env)
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/expr.py", line 809, in __init__
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -     self.terms = self.parse()
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -                  ^^^^^^^^^^^^
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/expr.py", line 828, in parse
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -     return self._visitor.visit(self.expr)
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/expr.py", line 405, in visit
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -     clean = self.preparser(node)
+[2025-02-03T19:10:50.958+0000] {subprocess.py:106} INFO -             ^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.959+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/expr.py", line 166, in _preparse
+[2025-02-03T19:10:50.959+0000] {subprocess.py:106} INFO -     return tokenize.untokenize(f(x) for x in tokenize_string(source))
+[2025-02-03T19:10:50.959+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.962+0000] {subprocess.py:106} INFO -   File "/usr/local/lib/python3.11/tokenize.py", line 282, in untokenize
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -     out = ut.untokenize(iterable)
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -           ^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -   File "/usr/local/lib/python3.11/tokenize.py", line 193, in untokenize
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -     self.compat(t, it)
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -   File "/usr/local/lib/python3.11/tokenize.py", line 230, in compat
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -     for tok in _itertools.chain([token], iterable):
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/expr.py", line 166, in <genexpr>
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -     return tokenize.untokenize(f(x) for x in tokenize_string(source))
+[2025-02-03T19:10:50.963+0000] {subprocess.py:106} INFO -                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-02-03T19:10:50.964+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.11/site-packages/pandas/core/computation/parsing.py", line 186, in tokenize_string
+[2025-02-03T19:10:50.964+0000] {subprocess.py:106} INFO -     for toknum, tokval, start, _, _ in token_generator:
+[2025-02-03T19:10:50.964+0000] {subprocess.py:106} INFO -   File "/usr/local/lib/python3.11/tokenize.py", line 525, in _tokenize
+[2025-02-03T19:10:50.964+0000] {subprocess.py:106} INFO -     raise TokenError("EOF in multi-line statement", (lnum, 0))
+[2025-02-03T19:10:50.964+0000] {subprocess.py:106} INFO - tokenize.TokenError: ('EOF in multi-line statement', (2, 0))
+[2025-02-03T19:10:51.036+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2025-02-03T19:10:51.043+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-02-03T19:10:51.046+0000] {taskinstance.py:1225} INFO - Marking task as FAILED. dag_id=etl_dag, task_id=collect_raw_stocks, run_id=manual__2025-02-03T12:05:46-07:00, execution_date=20250203T190546, start_date=20250203T191050, end_date=20250203T191051
+[2025-02-03T19:10:51.052+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-02-03T19:10:51.052+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 124 for task collect_raw_stocks (Bash command failed. The command returned a non-zero exit code 1.; 268)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-02-03T19:10:51.083+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-02-03T19:10:51.092+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-02-03T19:10:51.094+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

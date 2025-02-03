@@ -1,74 +1,118 @@
 # Airflow ETL Pipeline
 
-## **Apache Airflow Project Repository Summary**  
+This project contains an ETL (Extract, Transform, Load) pipeline implemented using Apache Airflow. The pipeline collects, processes, and stores data from various sources, including stock market data and book data from the Open Library API.
 
-#### **Overview**  
+## Project Structure
 
-Apache Airflow is an open-source workflow automation and orchestration tool for authoring, scheduling, and monitoring data pipelines. It enables users to define workflows as Directed Acyclic Graphs (DAGs) using Python, making it highly extensible and suitable for complex data engineering tasks.  
+The project is organized into the following directories and files:
 
-#### **Repository Information**  
+- `data_collection/`: Contains scripts for collecting and processing data.
+  - `collect_books.py`: Script to collect book data from the Open Library API.
+  - `collect_stocks.py`: Script to collect stock data using the yfinance library.
+  - `treat_books.py`: Script to process and transform collected book data.
+  - `treat_stocks.py`: Script to process and transform collected stock data.
+  - `utils.py`: Utility functions for data processing and storage.
 
-- **Official Repository**: [Apache Airflow GitHub](https://github.com/apache/airflow)  
-- **License**: Apache License 2.0  
-- **Primary Language**: Python  
-- **Current Stable Version**: Check [Releases](https://github.com/apache/airflow/releases)  
+## Requirements
 
-#### **Core Features**  
+The project requires the following Python packages:
 
-- **DAG-based Workflow Definition**: Uses Python to define task dependencies.  
-- **Scheduler**: Handles task execution based on defined dependencies and schedules.  
-- **Task Executors**: Supports Celery, Kubernetes, Local, and Sequential executors.  
-- **Plugins & Integrations**: Works with cloud providers (AWS, GCP, Azure) and tools like Spark, Kubernetes, and SQL databases.  
-- **Web UI**: Provides monitoring and debugging tools for DAG runs.  
-- **Event-Driven Triggers**: Supports Airflow Sensors for event-based task execution.  
-- **Templating & Jinja Support**: Enables parameterization of workflows.  
-
-#### **Airflow Project Structure**  
-
-- **`airflow/`**: Core package containing DAG execution logic, task operators, and scheduler.  
-- **`airflow/providers/`**: Integrations with cloud services and databases (AWS, GCP, Snowflake, etc.).  
-- **`tests/`**: Unit and integration tests for Airflow components.  
-- **`docs/`**: Documentation for installation, DAG authoring, and API reference.  
-- **`scripts/`**: Utility scripts for setting up development and CI/CD workflows.  
-
-#### **Installation & Setup**  
-
-```sh
-pip install apache-airflow
+```
+argparse
+datetime
+json
+numpy
+pandas
+pprint
+requests
+yfinance
+requests-cache
+requests-ratelimiter
+pyrate-limiter
 ```
 
-For production deployments, Airflow supports containerization with Docker and Kubernetes.  
+You can install the required packages using the following command:
 
-#### **Deployment Options**  
+```sh
+pip install -r requirements.txt
+```
 
-- **Standalone**: Local or VM-based deployment.  
-- **Docker**: `docker-compose.yaml` setup for development.  
-- **Kubernetes**: Airflow on Kubernetes with Helm charts.  
-- **Cloud Managed Services**: Google Cloud Composer, AWS MWAA, or Astronomer.io.  
+## Usage
 
-#### **Contribution & Development**
+### Collecting Book Data
 
-- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/apache/airflow/issues).  
-- **Pull Requests**: Follow the contribution guidelines in `CONTRIBUTING.rst`.  
-- **Community Support**: Discuss on [Apache Airflow Slack](https://apache-airflow.slack.com/) or mailing lists.  
+To collect book data from the Open Library API, run the `collect_books.py` script:
 
-#### **Use Cases**  
+```sh
+python data_collection/collect_books.py --data_lake_path <path_to_data_lake> --open_library_ids <comma_separated_ids> --execution_date <execution_date>
+```
 
-- Data Pipeline Orchestration  
-- Machine Learning Model Deployment  
-- ETL and ELT Workflow Automation  
-- Cloud and On-Prem Workflow Scheduling  
+### Collecting Stock Data
 
-### Project Structure
+To collect stock data, run the `collect_stocks.py` script:
 
-The project contains three main folders that will be used to complete the tasks:
+```sh
+python data_collection/collect_stocks.py --data_lake_path <path_to_data_lake> --stock_tickers <comma_separated_tickers> --execution_date <execution_date> --stock_collect_mode <normal|fill_missing> [--start_date_missing_values <start_date>] [--end_date_missing_values <end_date>]
+```
 
-airflow: This folder receives the code executed in this open-source tool.
+### Processing Book Data
 
-data_collection: This folder will contain your initial code to extract data from external sources.
+To process and transform collected book data, run the `treat_books.py` script:
 
-data_lake: This directory has a set of folders that will simulate a base data lake and store collected data. In the real world, you can build one using S3 buckets (or any other bucket solution from cloud providers). It has two main zones:
+```sh
+python data_collection/treat_books.py --data_lake_path <path_to_data_lake>
+```
 
-raw: This zone is designed to receive files in their purest form in the extension they were collected (e.g., csv, json, jpg, xlsx, and others). It is useful in cases of data reprocessing, preventing the download of already existing content.
+### Processing Stock Data
 
-refined: This is designed to receive modified versions of files in raw form and concatenate all the data in a single “table” with an optimized format. It is optimal for the consumption of end users and connections with data warehouses or data marts.
+To process and transform collected stock data, run the `treat_stocks.py` script:
+
+```sh
+python data_collection/treat_stocks.py --data_lake_path <path_to_data_lake>
+```
+
+## etl_dag
+
+[!image](./img/Screenshot%202025-02-03%20at%2012.53.09 PM.png)
+
+This Airflow DAG implements an ETL (Extract, Transform, Load) pipeline that processes two types of data: books from Open Library and stock market data. The DAG runs daily and handles the collection and refinement of data in parallel streams.
+
+## Parameters
+
+- `open_library_ids`: Array of strings containing Open Library book IDs to collect
+- `stock_tickers`: Array of strings containing stock ticker symbols
+- `stock_collect_mode`: 
+  - Options: "normal" or "fill_missing"
+  - Controls the stock data collection behavior
+- `start_date_missing_values`: Optional date string for historical stock data collection
+- `end_date_missing_values`: Optional date string for historical stock data collection
+
+## Workflow
+
+1. The pipeline starts with a dummy task for initialization
+2. Two parallel streams then process:
+   - Books data:
+     - Collects raw book data from Open Library
+     - Refines the collected book data
+   - Stock data:
+     - Collects raw stock market data
+     - Refines the collected stock data
+
+## Task Dependencies
+
+```
+                    collect_raw_books → refine_books
+                  ↗
+dummy_task
+                  ↘
+                    collect_raw_stocks → refine_stocks
+```
+
+## Environment Variables Required
+
+- `BASE_DATA_COLLECTION_PATH`: Base path for the collection scripts
+- `BASE_DATA_LAKE_PATH`: Base path for the data lake storage
+
+## License
+
+This project is licensed under the MIT License.

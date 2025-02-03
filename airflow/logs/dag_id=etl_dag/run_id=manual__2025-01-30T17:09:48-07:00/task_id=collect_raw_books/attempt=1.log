@@ -1,0 +1,52 @@
+[2025-01-31T00:10:08.480+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-31T00:10:08.495+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T17:09:48-07:00 [queued]>
+[2025-01-31T00:10:08.503+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T17:09:48-07:00 [queued]>
+[2025-01-31T00:10:08.503+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 1
+[2025-01-31T00:10:08.512+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): collect_raw_books> on 2025-01-31 00:09:48+00:00
+[2025-01-31T00:10:08.516+0000] {standard_task_runner.py:72} INFO - Started process 4081 to run task
+[2025-01-31T00:10:08.518+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_dag', 'collect_raw_books', 'manual__2025-01-30T17:09:48-07:00', '--job-id', '102', '--raw', '--subdir', 'DAGS_FOLDER/my_first_dag.py', '--cfg-path', '/tmp/tmpb_i17y_y']
+[2025-01-31T00:10:08.520+0000] {standard_task_runner.py:105} INFO - Job 102: Subtask collect_raw_books
+[2025-01-31T00:10:08.546+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_dag.collect_raw_books manual__2025-01-30T17:09:48-07:00 [running]> on host 48308722451a
+[2025-01-31T00:10:08.591+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_dag' AIRFLOW_CTX_TASK_ID='collect_raw_books' AIRFLOW_CTX_EXECUTION_DATE='2025-01-31T00:09:48+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T17:09:48-07:00'
+[2025-01-31T00:10:08.592+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-31T00:10:08.599+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2025-01-31T00:10:08.600+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python3 "/opt/***/data_collection/"collect_books.py --data_lake_path $DATA_LAKE_PATH --open_library_ids $OPEN_LIBRARY_IDS --execution_date $EXECUTION_DATE']
+[2025-01-31T00:10:08.646+0000] {subprocess.py:99} INFO - Output:
+[2025-01-31T00:10:16.661+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/.json
+[2025-01-31T00:10:16.667+0000] {subprocess.py:106} INFO - Error occurred in the request. It returned code: 404
+[2025-01-31T00:10:16.669+0000] {subprocess.py:106} INFO -  {'error': 'notfound', 'key': '/works/'}
+[2025-01-31T00:10:16.669+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_
+[2025-01-31T00:10:16.670+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL33899062M.json
+[2025-01-31T00:10:16.670+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL33899062M
+[2025-01-31T00:10:16.670+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL8759604M.json
+[2025-01-31T00:10:16.670+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL8759604M
+[2025-01-31T00:10:16.671+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL47317227M.json
+[2025-01-31T00:10:16.672+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL47317227M
+[2025-01-31T00:10:16.672+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL37985553M.json
+[2025-01-31T00:10:16.673+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL37985553M
+[2025-01-31T00:10:16.675+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL26974419M.json
+[2025-01-31T00:10:16.675+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL26974419M
+[2025-01-31T00:10:16.675+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL46057997M.json
+[2025-01-31T00:10:16.675+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL46057997M
+[2025-01-31T00:10:16.676+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/[.json
+[2025-01-31T00:10:16.676+0000] {subprocess.py:106} INFO - Error occurred in the request. It returned code: 404
+[2025-01-31T00:10:16.676+0000] {subprocess.py:106} INFO -  {'error': 'notfound', 'key': '/works/['}
+[2025-01-31T00:10:16.676+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_[
+[2025-01-31T00:10:16.676+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL23338573M.json
+[2025-01-31T00:10:16.677+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL23338573M
+[2025-01-31T00:10:16.677+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/].json
+[2025-01-31T00:10:16.677+0000] {subprocess.py:106} INFO - Error occurred in the request. It returned code: 404
+[2025-01-31T00:10:16.678+0000] {subprocess.py:106} INFO -  {'error': 'notfound', 'key': '/works/]'}
+[2025-01-31T00:10:16.679+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_]
+[2025-01-31T00:10:16.680+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL5204176M.json
+[2025-01-31T00:10:16.680+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL5204176M
+[2025-01-31T00:10:16.680+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL38631342M.json
+[2025-01-31T00:10:16.680+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL38631342M
+[2025-01-31T00:10:16.680+0000] {subprocess.py:106} INFO - https://openlibrary.org/works/OL24503655M.json
+[2025-01-31T00:10:16.682+0000] {subprocess.py:106} INFO - /opt/***/data_lake/raw/json/books/20250131_book_OL24503655M
+[2025-01-31T00:10:16.722+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2025-01-31T00:10:16.736+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-31T00:10:16.736+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=etl_dag, task_id=collect_raw_books, run_id=manual__2025-01-30T17:09:48-07:00, execution_date=20250131T000948, start_date=20250131T001008, end_date=20250131T001016
+[2025-01-31T00:10:16.759+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-01-31T00:10:16.769+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-01-31T00:10:16.769+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
