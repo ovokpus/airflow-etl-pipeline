@@ -73,7 +73,7 @@ python data_collection/treat_stocks.py --data_lake_path <path_to_data_lake>
 
 ## etl_dag
 
-[!image](./img/Screenshot%202025-02-03%20at%2012.53.09 PM.png)
+![image](./img/Screenshot%202025-02-03%20at%2012.53.09 PM.png)
 
 This Airflow DAG implements an ETL (Extract, Transform, Load) pipeline that processes two types of data: books from Open Library and stock market data. The DAG runs daily and handles the collection and refinement of data in parallel streams.
 
