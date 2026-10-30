@@ -1,0 +1,9 @@
+.git
+.venv
+**/node_modules
+**/__pycache__
+data_lake
+airflow/logs
+legacy
+docs
+frontend/dist

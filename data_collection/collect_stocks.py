@@ -11,16 +11,7 @@ from argparse import ArgumentParser
 import pandas as pd
 from utils import save_data, get_missing_stock_dates
 
-import requests_cache
-from requests import Session
-from requests_cache import CacheMixin, SQLiteCache
-from requests_ratelimiter import LimiterMixin, MemoryQueueBucket
-from pyrate_limiter import Duration, RequestRate, Limiter
-
-
-class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
-    pass
-
+import time
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -35,18 +26,11 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 def collect_stock_data(stock_ticker: str, start_date: str, end_date: str) -> dict:
-    n_requests = 2
-    interval = 6
-    session = CachedLimiterSession(
-        limiter=Limiter(
-            RequestRate(n_requests, Duration.SECOND * interval)
-        ),  # max X requests per Y seconds
-        bucket_class=MemoryQueueBucket,
-        backend=SQLiteCache("stock_etl.cache"),
-    )
-
-    ticker_data = Ticker(stock_ticker, session=session)
-    df = ticker_data.history(start=start_date, end=end_date)
+    # Recent yfinance releases manage their own (curl_cffi) session and reject a plain
+    # requests session, so the old cached/rate-limited session was removed. A short
+    # pause between tickers keeps us polite with Yahoo.
+    time.sleep(1)
+    df = Ticker(stock_ticker).history(start=start_date, end=end_date)
     return df
 
 
@@ -129,6 +113,9 @@ if __name__ == "__main__":
                         ticker, start_date=missing_date, end_date=tomorrow_dt
                     ).reset_index()
                     dfs.append(response)
+                if not dfs:
+                    print(f"No missing dates for {ticker}")
+                    continue
                 response = pd.concat(dfs)
 
                 file_name = f"{dt}_stock_{ticker}_fill_missing_from_{args.start_date_missing_values}_to_{args.end_date_missing_values}"
