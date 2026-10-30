@@ -10,7 +10,8 @@ import re
 from utils import save_data
 import pandas as pd
 
-BASE_API_URL = "https://openlibrary.org/works/"
+# The IDs used here are edition IDs ("...M"), which live under /books/, not /works/.
+BASE_API_URL = "https://openlibrary.org/books/"
 FILE_FORMAT = ".json"
 
 # IDS_LIST = [
@@ -57,6 +58,7 @@ def collect_single_book_data(
             raise requests.exceptions.HTTPError(msg)
     except requests.exceptions.RequestException as e:
         print(e)
+        return None
 
 
 if __name__ == "__main__":
@@ -104,6 +106,9 @@ if __name__ == "__main__":
                                "%Y-%m-%d").strftime("%Y%m%d")
         response_json = collect_single_book_data(
             BASE_API_URL, item, FILE_FORMAT)
+        if not response_json:
+            print(f"Skipping {item}: no data returned")
+            continue
         file_name = f"{dt}_book_{item}"
         save_data(
             response_json,

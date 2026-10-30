@@ -20,6 +20,8 @@ def save_data(
     DATA_LAKE_BASE_PATH = f"{base_path}{zone}/{file_type}/{context}/"
     full_file_name = f"{DATA_LAKE_BASE_PATH}{file_name}"
     print(full_file_name)
+    if zone == "raw":
+        os.makedirs(DATA_LAKE_BASE_PATH, exist_ok=True)
     if file_type == "csv" and zone == "raw":
         if not isinstance(file_content, pd.DataFrame):
             df = pd.DataFrame(file_content)
@@ -36,10 +38,11 @@ def save_data(
             df = file_content
 
         print(df.dtypes)
-        if 'collect_date' in df.columns:
-            df['collect_date'] = pd.to_numeric(df['collect_date'], errors='coerce').astype('Int64')
-        if 'date' in df.columns:
-            df['date'] = pd.to_numeric(df['date'], errors='coerce').astype('Int64')
+        # Store dates as real datetimes. The previous version ran pd.to_numeric over
+        # "YYYY-MM-DD" strings, which silently turned every date into NA.
+        for col in ("collect_date", "date"):
+            if col in df.columns:
+                df[col] = to_naive_date(df[col])
         print(df.dtypes)
 
         cols_except_dt = [col for col in df.columns.tolist() if col != "collect_date"]
@@ -47,11 +50,18 @@ def save_data(
         df =df.sort_values("collect_date", ascending=False).drop_duplicates(
             subset=cols_except_dt, keep="last"
             )
-        df.to_parquet(f"{full_file_name}.parquet")
+        os.makedirs(DATA_LAKE_BASE_PATH, exist_ok=True)
+        df.to_parquet(f"{full_file_name}.parquet", index=False)
     else:
         print(
             "Specified file type not found or combination of Zone and File Type does not match"
         )
+
+def to_naive_date(series: pd.Series) -> pd.Series:
+    """Parse strings/timestamps (tz-aware or not) into tz-naive midnight datetimes."""
+    parsed = pd.to_datetime(series, errors="coerce", utc=True, format="mixed")
+    return parsed.dt.tz_localize(None).dt.normalize()
+
 
 def get_missing_stock_dates(
     df: pd.DataFrame, ticker: str, date_col_name: str, start_date: str, end_date: str
@@ -66,7 +76,10 @@ def get_missing_stock_dates(
         # raise ValueError("ticker does not exist in the data")
         return []
 
-    existing_dates = df_filtered[date_col_name].unique().tolist()
+    existing_dates = (
+        pd.to_datetime(df_filtered[date_col_name], errors="coerce")
+        .dt.strftime("%Y-%m-%d").dropna().unique().tolist()
+    )
     datetime_start_date = datetime.strptime(start_date, dt_fmt)
     datetime_end_date = datetime.strptime(end_date, dt_fmt)
     expected_dates = [

@@ -1,5 +1,16 @@
 venv/
+.venv/
 .vscode/
 __pycache__/
+.pytest_cache/
+.env
+.DS_Store
+node_modules/
+frontend/dist/
 
-data_lake/**
+# Runtime outputs: the data lake is seeded from sample_data/ by airflow-init.
+data_lake/
+airflow/logs/
+*.cache
+*.sqlite
+*.tsbuildinfo

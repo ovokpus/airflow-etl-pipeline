@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Unit tests (ETL + API)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.4"
+      - run: uv sync --frozen
+      - run: uv run pytest -q tests --ignore=tests/dags
+
+  dags:
+    name: DAG import tests (Airflow image)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Airflow image
+        run: docker compose build airflow-init
+      - name: DagBag import + structure tests
+        run: |
+          docker run --rm -v "$PWD:/repo" -w /repo --entrypoint bash \
+            airflow-etl-pipeline/airflow:local \
+            -c "pip install -q pytest && python -m pytest -q -p no:cacheprovider tests/dags"
+
+  build:
+    name: docker compose build
+    runs-on: ubuntu-latest
+    needs: [test, dags]
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
