@@ -1,6 +1,6 @@
-<p align="center"><img src="assets/banner.jpg" alt="Brass conveyor belt carrying small blocks and paper ribbons into a copper barrel" width="100%"></p>
-
 # 📦 Airflow ETL Pipeline
+
+<p align="center"><img src="assets/banner.jpg" alt="Brass conveyor belt carrying small blocks and paper ribbons into a copper barrel" width="100%"></p>
 
 <p align="center"><img src="docs/assets/hero.svg" alt="Airflow ETL Pipeline" width="100%"/></p>
 
