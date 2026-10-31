@@ -8,6 +8,10 @@
 
 ---
 
+## Business case
+
+Data teams that run scripts with cron find out about failures late and have no record of what ran. This pipeline moves two public feeds through a data lake into a Postgres warehouse under Airflow, with retries, backfills and a viewer that shows every run. The sources are demonstrations, and the pattern is the part to reuse. [docs/BUSINESS_CASE.md](docs/BUSINESS_CASE.md) covers the use cases, an illustrative ROI model and the limits.
+
 ## 1. The idea in one slide
 
 | | |
