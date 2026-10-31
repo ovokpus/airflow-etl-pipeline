@@ -1,5 +1,7 @@
 # 📦 Airflow ETL Pipeline
 
+<p align="center"><img src="docs/assets/hero.svg" alt="Airflow ETL Pipeline" width="100%"/></p>
+
 > **Books from Open Library and daily stock bars from Yahoo Finance → a file-based data lake → a Postgres warehouse.** Apache Airflow orchestrates the pipeline. A small FastAPI + React viewer shows each run and what it produced.
 
 ![App dashboard](docs/screenshots/app-dashboard.png)
@@ -36,6 +38,8 @@ Stop with `docker compose down`. Add `-v` to also drop the Postgres volume.
 On first start, `airflow-init` migrates the metadata DB, creates the local admin user, and seeds `./data_lake/` (gitignored) from `sample_data/data_lake/`. Runs then append to that seed data.
 
 ## 3. Pipeline
+
+<p align="center"><img src="docs/assets/flow.svg" alt="Airflow ETL Pipeline data flow" width="100%"/></p>
 
 ```mermaid
 flowchart LR
